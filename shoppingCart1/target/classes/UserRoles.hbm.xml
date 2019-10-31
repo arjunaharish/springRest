@@ -1,0 +1,14 @@
+<hibernate-mapping>
+    <class name="com.shoppingcart.beans.LoginBean" table="users" catalog="users">
+        <id name="username" type="java.lang.Long">
+            <column name="username" />
+            <generator class="identity" />
+        </id>
+        <property name="password" type="string">
+            <column name="password" length="10" not-null="true" unique="false" />
+        </property>
+        <property name="username" type="string">
+            <column name="username" length="45" not-null="true" unique="false" />
+        </property>
+    </class>
+</hibernate-mapping>

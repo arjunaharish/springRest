@@ -1,0 +1,97 @@
+package com.shoppingcart.generateEmployeeTables;
+
+
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+@Entity
+@Table(name = "EMP",
+   uniqueConstraints = { @UniqueConstraint(columnNames = { "EMP_ID" }) })
+public class EmployeeTables {
+	private int id;    
+	private String name;    
+	private float salary;    
+	private String designation;
+	private int userroleId;
+	private String username;
+	private String role;
+	
+
+  public int getUserroleId() {
+		return userroleId;
+	}
+	public void setUserroleId(int userroleId) {
+		this.userroleId = userroleId;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
+	public List<EmployeeTables> getEmployeeTables() {
+		return employeeTables;
+	}
+	public void setEmployeeTables(List<EmployeeTables> employeeTables) {
+		this.employeeTables = employeeTables;
+	}
+@Id
+  @Column(name = "ID")
+	public int getId() {
+		return id;
+	}
+  @Column(name = "ID", length = 20, nullable = false)
+	public void setId(int id) {
+		this.id = id;
+	}
+  @Column(name = "NAME", length = 50, nullable = false)
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	@Column(name = "SALARY", length = 50, nullable = true)
+	public float getSalary() {
+		return salary;
+	}
+	public void setSalary(float salary) {
+		this.salary = salary;
+	}
+	@Column(name = "DESIGNATION", length = 50, nullable = true)
+	public String getDesignation() {
+		return designation;
+	}
+	public void setDesignation(String designation) {
+		this.designation = designation;
+	}
+	
+	private List<EmployeeTables> employeeTables;
+
+	public List<EmployeeTables> getContacts() {
+		return employeeTables;
+	}
+
+	public void setContacts(List<EmployeeTables> employeeTables) {
+		this.employeeTables = employeeTables;
+	}
+
+	/*public EmployeeTables(int id, String name, float salary, String designation) {
+		this.id = id;
+		this.name = name;
+		this.designation = designation;
+		this.salary = salary;
+	}*/
+	
+}

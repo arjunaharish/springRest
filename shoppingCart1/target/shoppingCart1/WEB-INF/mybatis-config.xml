@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE configuration
+  PUBLIC '-//mybatis.org//DTD Config 3.0//EN'
+  'http://mybatis.org/dtd/mybatis-3-config.dtd'>
+<configuration>
+ <!-- <properties resource='jdbc.properties'/> -->
+ <environments default='development'>
+  <environment id='development'>
+    <transactionManager type='JDBC'/>
+    <dataSource type='POOLED'>
+   <!-- <property name='driver' value='com.mysql.jdbc.Driver'/>
+   <property name='url' value='jdbc:mysql://localhost:3306/mybatis-demo'/>
+   <property name='username' value='root'/>
+   <property name='password' value='admin'/> -->
+   <property name='driver' value='oracle.jdbc.OracleDriver'/>
+   <property name='url' value='jdbc:oracle:thin:@localhost:1521:harjun250'/>
+   <property name='username' value='system'/>
+   <property name='password' value='Atram8585'/>
+    </dataSource>
+  </environment>
+  </environments>
+  <mappers>
+    <mapper class='com.shoppingcart.surveylistdao.mappers.SurveyListDao'/>
+  </mappers>
+</configuration>

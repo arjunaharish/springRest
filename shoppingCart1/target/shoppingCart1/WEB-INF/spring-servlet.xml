@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   
+    xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+    xmlns:context="http://www.springframework.org/schema/context"  
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:jee="http://www.springframework.org/schema/jee"  
+    xsi:schemaLocation="  
+        http://www.springframework.org/schema/beans  
+        http://www.springframework.org/schema/beans/spring-beans.xsd  
+        http://www.springframework.org/schema/context  
+        http://www.springframework.org/schema/context/spring-context.xsd  
+        http://www.springframework.org/schema/mvc  
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+        http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">  
+<context:component-scan base-package="com.shoppingcart.controllers,com.shoppingcart.dao,com.shoppingcart.configuration"></context:component-scan>    
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
+<mvc:annotation-driven />
+
+      <mybatis:scan base-package="com.shoppingcart.surveylistdao.mappers" />
+    
+<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">    
+<property name="prefix" value="/WEB-INF/jsp/"></property>    
+<property name="suffix" value=".jsp"></property>    
+</bean>    
+    
+<!--  <bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">    
+<property name="driverClassName" value="oracle.jdbc.OracleDriver"></property>    
+<property name="url" value="jdbc:oracle:thin:@localhost:1521:harjun250"></property>    
+<property name="username" value="system"></property>    
+<property name="password" value="Atram8585"></property>  
+</bean>     -->
+
+
+<!-- <bean id="ds" class="org.springframework.jndi.JndiObjectFactoryBean">
+    <property name="jndiName" value="java:comp/env/jdbc/BaeldungDatabase"/>
+    <property name="lookupOnStartup" value="false"/>
+    <property name="cache" value="true"/>
+    <property name="proxyInterface" value="javax.sql.DataSource"/>
+</bean> -->
+
+<jee:jndi-lookup id="dbDataSource"
+   jndi-name="jdbc/DatabaseName"
+   expected-type="javax.sql.DataSource" />
+   
+   <bean id="ds" class="org.springframework.jndi.JndiObjectFactoryBean">
+    <property name="jndiName" value="java:comp/env/jdbc/DatabaseName"/>
+</bean>
+<!-- 
+<bean id="springDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+  <property name="jndiName" value="java:comp/env/jdbc/springDataSource"/>
+  <property name="lookupOnStartup" value="true"/>
+  <property name="proxyInterface" value="javax.sql.DataSource"/>
+</bean>
+ -->
+
+   
+
+<!-- <bean id="clientFactory" class="org.springframework.integration.mqtt.core.DefaultMqttPahoClientFactory" /> -->
+    
+<bean id="jt" class="org.springframework.jdbc.core.JdbcTemplate">    
+<property name="dataSource" ref="ds"></property>    
+</bean>    
+    
+<bean id="dao" class="com.shoppingcart.dao.EmpTablesDao">    
+<property name="template" ref="jt"></property>    
+</bean>
+
+<bean id="searchdao" class="com.shoppingcart.dao.SearchBarDao">    
+<property name="searchBarDaotemplate" ref="jt"></property>    
+</bean>
+              
+<bean id="loginBean" class="com.shoppingcart.beans.LoginBean">
+</bean>
+<bean id="DatabaseImages" class="com.shoppingcart.generateEmployeeTables.DatabaseImages">
+</bean>
+<bean id="dbImagesDao" class="com.shoppingcart.dao.DbImagesDaoImpl">
+</bean>
+<bean id="tennis" class="com.shoppingcart.beans.Tennis">
+</bean>
+<bean id="tennisDao" class="com.shoppingcart.dao.TennisDaoImpl">
+</bean>
+
+<bean id="dataSource" class="com.shoppingcart.beans.DataSource">
+</bean>
+
+<bean id="employeeServImpl" class="com.shoppingcart.dao.EmployeeServImpl">
+</bean>
+
+<!-- <bean id="surveyListDao" class="com.shoppingcart.surveylistdao.mappers.SurveyListDaoImpl">    
+</bean> -->
+
+ <bean id="surveyListService" class="com.shoppingcart.surveylistdao.mappers.SurveylistService" />
+<!-- <include mappers related files below> -->
+
+<!-- <bean id="CreateNewSurveyList" class="org.mybatis.spring.mapper.MapperFactoryBean">
+  <property name="surveyListService" value="com.shoppingcart.surveylistdao.mappers.SurveylistService" />
+</bean> -->
+
+<bean id="SurveyListDao" class="com.shoppingcart.surveylistdao.mappers.SurveylistService">
+          <property name="sqlSession" ref="sqlSession" />
+
+</bean>
+
+<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+  <constructor-arg index="0" ref="sqlSessionFactory" />
+  <constructor-arg index="1" value="BATCH" />
+</bean>
+
+<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dbDataSource" />
+</bean>
+
+
+
+</beans>
